@@ -49,15 +49,12 @@ export default class HeaderActionDrawer extends PureComponent {
           <span className="header-action-drawer__separator" />
 
           {this.iconWithFFClickCatcher('fas fa-plus fa-lg', onAddNewHeader)}
-        </div>
-        <div className="header-action-drawer__row">
           <div
             className="header-action-drawer__deadline-scheduled-button"
             onClick={onDeadlineClick}
           >
             Deadline
           </div>
-
           <span className="header-action-drawer__separator" />
 
           <div

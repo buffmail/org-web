@@ -273,7 +273,7 @@ class HeaderContent extends PureComponent {
             <textarea
               autoFocus
               className="textarea"
-              rows="8"
+              rows={this.state.descriptionValue.split('\n').length}
               ref={this.handleTextareaRef}
               value={this.state.descriptionValue}
               onBlur={this.handleTextareaBlur}
