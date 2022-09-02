@@ -9,6 +9,7 @@ import {
   setOrgFileErrorMessage,
 } from './org';
 import { persistField } from '../util/settings_persister';
+import { Dropbox } from 'dropbox';
 
 import { addSeconds } from 'date-fns';
 
@@ -55,6 +56,8 @@ export const setIsLoadingMoreDirectoryListing = isLoadingMore => ({
 export const getDirectoryListing = path => (dispatch, getState) => {
   dispatch(setLoadingMessage('Getting listing...'));
 
+  window.console.log('reading directories');
+
   const client = getState().syncBackend.get('client');
   client
     .getDirectoryListing(path)
@@ -63,8 +66,14 @@ export const getDirectoryListing = path => (dispatch, getState) => {
       dispatch(hideLoadingMessage());
     })
     .catch(error => {
-      alert('There was an error retrieving files!');
-      console.error(error);
+      alert(`There was an error retrieving files! (status: ${error.status})`);
+
+      if (error.status === 401) {
+        const dropbox = new Dropbox({ clientId: process.env.REACT_APP_DROPBOX_CLIENT_ID, fetch });
+        const authURL = dropbox.getAuthenticationUrl(window.location.origin + '/');
+        window.location = authURL;
+      }
+
       dispatch(hideLoadingMessage());
     });
 };
