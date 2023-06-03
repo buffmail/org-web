@@ -127,7 +127,12 @@ export const downloadFile = path => {
         dispatch(displayFile(path, fileContents));
         dispatch(applyOpennessState());
       })
-      .catch(() => {
+      .catch((e) => {
+        if (e.status === 401) {
+          const dropbox = new Dropbox({ clientId: process.env.REACT_APP_DROPBOX_CLIENT_ID, fetch });
+          const authURL = dropbox.getAuthenticationUrl(window.location.origin + '/');
+          window.location = authURL;
+        }
         dispatch(hideLoadingMessage());
         dispatch(setIsLoading(false));
         dispatch(setOrgFileErrorMessage('File not found'));
