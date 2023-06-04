@@ -28,11 +28,14 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "postinstall": "npm install -g serve"
+    "postinstall": "npm install -g serve",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-to-json": "^3.3.4",
+    "gh-pages": "^5.0.0",
     "prettier": "^1.16.4",
     "raw.macro": "0.3.0",
     "react-test-renderer": "^16.4.2"
@@ -42,5 +45,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "homepage": "https://buffmail.github.io/org-web/"
 }

@@ -24,7 +24,7 @@ export default class SyncServiceSignIn extends PureComponent {
     persistField('authenticatedSyncService', 'Dropbox');
 
     const dropbox = new Dropbox({ clientId: process.env.REACT_APP_DROPBOX_CLIENT_ID, fetch });
-    const authURL = dropbox.getAuthenticationUrl(window.location.origin + '/');
+    const authURL = dropbox.getAuthenticationUrl(window.location.origin + process.env.PUBLIC_URL + '/');
     window.location = authURL;
   }
 
