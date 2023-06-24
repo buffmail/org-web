@@ -273,11 +273,14 @@ class HeaderContent extends PureComponent {
             <textarea
               autoFocus
               className="textarea"
-              rows={this.state.descriptionValue.split('\n').length}
+              rows={Math.min(10, this.state.descriptionValue.split('\n').length)}
               ref={this.handleTextareaRef}
               value={this.state.descriptionValue}
               onBlur={this.handleTextareaBlur}
               onChange={this.handleDescriptionChange}
+              onFocus={(e) => {
+                e.target.scrollTop = e.target.scrollHeight;
+              }}
             />
             <div
               className="header-content__insert-timestamp-button"
