@@ -75,7 +75,7 @@ export const getCurrentTimestamp = ({ isActive = true, withStartTime = false } =
   return timestamp;
 };
 
-export const getCurrentTimestampAsText = () => `<${formatDate(new Date(), 'YYYY-MM-DD ddd')}>`;
+export const getCurrentTimestampAsText = () => `[${formatDate(new Date(), 'YYYY-MM-DD ddd')}]`;
 
 export const dateForTimestamp = timestamp => {
   const { year, month, day, startHour, startMinute } = timestamp.toJS();
