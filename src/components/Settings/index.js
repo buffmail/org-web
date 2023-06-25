@@ -63,6 +63,11 @@ const Settings = ({
   return (
     <div className="settings-container">
       <div className="setting-container">
+        <div className="setting-label">Last built</div>
+        {buildTimestamp}
+      </div>
+
+      <div className="setting-container">
         <div className="setting-label">Font size</div>
         <TabButtons
           buttons={['Regular', 'Large']}
@@ -143,8 +148,6 @@ const Settings = ({
           />
         </div>
       </div>
-      <div className="setting-container setting-container--vertical">{buildTimestamp}</div>
-
       <div className="settings-buttons-container">
         <button className="btn settings-btn" onClick={handleCaptureTemplatesClick}>
           Capture templates
