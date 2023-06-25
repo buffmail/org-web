@@ -10,7 +10,7 @@ import {
 } from './util/settings_persister';
 import runAllMigrations from './migrations';
 import parseQueryString from './util/parse_query_string';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 
 import { DragDropContext } from 'react-beautiful-dnd';
 
