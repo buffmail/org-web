@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import preval from 'preval.macro';
 
 import { withRouter } from 'react-router-dom';
 
@@ -56,6 +57,8 @@ const Settings = ({
   const handleChangelogClick = () => base.pushModalPage('changelog');
 
   const handleHelpClick = () => base.pushModalPage('sample');
+
+  const buildTimestamp = preval`module.exports = new Date().toLocaleString();`;
 
   return (
     <div className="settings-container">
@@ -140,6 +143,7 @@ const Settings = ({
           />
         </div>
       </div>
+      <div className="setting-container setting-container--vertical">{buildTimestamp}</div>
 
       <div className="settings-buttons-container">
         <button className="btn settings-btn" onClick={handleCaptureTemplatesClick}>
