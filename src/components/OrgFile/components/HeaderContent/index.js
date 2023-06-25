@@ -289,20 +289,21 @@ class HeaderContent extends PureComponent {
               }}
               onKeyDown={e => {
                 const target = e.target;
-                if (target && e.keyCode === 13) {
+                if (target && e.key === 'Enter') {
                   e.preventDefault();
                   const currentContent = target.value;
                   const caretPosition = target.selectionStart;
-                  const newChars = '\n' + indentStr;
-                  target.value =
-                    currentContent.substring(0, caretPosition) +
-                    newChars +
-                    currentContent.substring(caretPosition);
+                  const beforeText = currentContent.substring(0, caretPosition);
+                  const afterText = currentContent.substring(caretPosition);
+                  const newlineText = '\n' + indentStr;
+                  target.value = beforeText + newlineText + afterText;
                   target.setSelectionRange(
-                    caretPosition + newChars.length,
-                    caretPosition + newChars.length
+                    caretPosition + newlineText.length,
+                    caretPosition + newlineText.length
                   );
-                  target.scrollTop = target.scrollHeight;
+                  if (afterText.length === 0) {
+                    target.scrollTop = target.scrollHeight;
+                  }
                 }
               }}
             />
