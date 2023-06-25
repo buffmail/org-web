@@ -212,13 +212,8 @@ class HeaderBar extends PureComponent {
   }
 
   renderActions() {
-    const {
-      isAuthenticated,
-      hasUnseenChangelog,
-      activeModalPage,
-      path,
-      isUndoEnabled,
-    } = this.props;
+    const { isAuthenticated, hasUnseenChangelog, activeModalPage, path, isUndoEnabled } =
+      this.props;
 
     if (!!activeModalPage) {
       return (
@@ -237,14 +232,13 @@ class HeaderBar extends PureComponent {
 
       return (
         <div className="header-bar__actions">
-          {!isAuthenticated &&
-            this.getPathRoot() !== 'sign_in' && (
-              <Link to="/sign_in">
-                <div className="header-bar__actions__item" title="Sign in">
-                  Sign in
-                </div>
-              </Link>
-            )}
+          {!isAuthenticated && this.getPathRoot() !== 'sign_in' && (
+            <Link to="/sign_in">
+              <div className="header-bar__actions__item" title="Sign in">
+                Sign in
+              </div>
+            </Link>
+          )}
 
           {!isAuthenticated && (
             <a href="https://github.com/DanielDe/org-web" target="_blank" rel="noopener noreferrer">
@@ -252,18 +246,16 @@ class HeaderBar extends PureComponent {
             </a>
           )}
 
-          {isAuthenticated &&
-            !activeModalPage &&
-            !!path && (
-              <Fragment>
-                <i className={undoIconClassName} onClick={this.handleUndoClick} title="Undo" />
-                <i
-                  className="fas fa-question-circle header-bar__actions__item"
-                  onClick={this.handleHelpClick}
-                  title="Help"
-                />
-              </Fragment>
-            )}
+          {isAuthenticated && !activeModalPage && !!path && (
+            <Fragment>
+              <i className={undoIconClassName} onClick={this.handleUndoClick} title="Undo" />
+              <i
+                className="fas fa-question-circle header-bar__actions__item"
+                onClick={this.handleHelpClick}
+                title="Help"
+              />
+            </Fragment>
+          )}
 
           {isAuthenticated && (
             <i
@@ -310,9 +302,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(HeaderBar)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderBar));

@@ -18,10 +18,10 @@ export default ({ template, onCapture, headers, onClose }) => {
   );
 
   const isTopLevelTarget = template.get('headerPaths').filter(path => path.length !== 0).size === 0;
-  const targetHeader = useMemo(() => headerWithPath(headers, template.get('headerPaths')), [
-    headers,
-    template.get('headerPaths'),
-  ]);
+  const targetHeader = useMemo(
+    () => headerWithPath(headers, template.get('headerPaths')),
+    [headers, template.get('headerPaths')]
+  );
 
   const [textareaValue, setTextareaValue] = useState(substitutedTemplate);
   const [shouldPrepend, setShouldPrepend] = useState(template.get('shouldPrepend'));

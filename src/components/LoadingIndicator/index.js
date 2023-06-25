@@ -7,15 +7,12 @@ export default ({ message }) => {
   const [shouldRenderIndicator, setShouldRenderIndicator] = useState(true);
   const [lastMessage, setLastMessage] = useState(message);
 
-  useEffect(
-    () => {
-      if (!!message) {
-        setLastMessage(message);
-        setShouldRenderIndicator(true);
-      }
-    },
-    [message]
-  );
+  useEffect(() => {
+    if (!!message) {
+      setLastMessage(message);
+      setShouldRenderIndicator(true);
+    }
+  }, [message]);
 
   const handleAnimationRest = () => {
     if (!!message) {

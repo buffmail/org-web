@@ -55,7 +55,11 @@ export default class ListPart extends PureComponent {
     }
 
     const prevSelectedListItemId = prevProps.subPartDataAndHandlers.selectedListItemId;
-    if ((prevSelectedListItemId !== selectedListItemId) && inListTitleEditMode && prevProps.subPartDataAndHandlers.inListTitleEditMode) {
+    if (
+      prevSelectedListItemId !== selectedListItemId &&
+      inListTitleEditMode &&
+      prevProps.subPartDataAndHandlers.inListTitleEditMode
+    ) {
       if (listTitleValues.has(prevSelectedListItemId)) {
         onListTitleValueUpdate(prevSelectedListItemId, listTitleValues.get(prevSelectedListItemId));
       }
@@ -67,9 +71,16 @@ export default class ListPart extends PureComponent {
       }
     }
 
-    if ((prevSelectedListItemId !== selectedListItemId) && inListContentsEditMode && prevProps.subPartDataAndHandlers.inListContentsEditMode) {
+    if (
+      prevSelectedListItemId !== selectedListItemId &&
+      inListContentsEditMode &&
+      prevProps.subPartDataAndHandlers.inListContentsEditMode
+    ) {
       if (listContentsValues.has(prevSelectedListItemId)) {
-        onListContentsValueUpdate(prevSelectedListItemId, listContentsValues.get(prevSelectedListItemId));
+        onListContentsValueUpdate(
+          prevSelectedListItemId,
+          listContentsValues.get(prevSelectedListItemId)
+        );
       }
     }
 
@@ -232,15 +243,14 @@ export default class ListPart extends PureComponent {
                   Insert timestamp
                 </div>
               </div>
-            ) : (
-              listTitleValues.get(item.get('id'))) ? (
-                <AttributedString
+            ) : listTitleValues.get(item.get('id')) ? (
+              <AttributedString
                 parts={item.get('titleLine')}
                 subPartDataAndHandlers={this.props.subPartDataAndHandlers}
               />
-              ) : (
-                <span>&nbsp;</span>
-              )}
+            ) : (
+              <span>&nbsp;</span>
+            )}
           </div>
           <Collapse isOpened={isItemSelected && !shouldDisableActions}>
             <ListActionDrawer subPartDataAndHandlers={this.props.subPartDataAndHandlers} />

@@ -5,14 +5,12 @@ import preval from 'preval.macro';
 import './stylesheet.css';
 
 export default () => {
-  const buildTimestamp = preval`module.exports = new Date().toLocaleString();`
+  const buildTimestamp = preval`module.exports = new Date().toLocaleString();`;
 
   return (
     <div className="landing-container">
       <h1 className="landing-app-name">org-web</h1>
-      <div>
-        {`(built at ${buildTimestamp})`}
-      </div>
+      <div>{`(built at ${buildTimestamp})`}</div>
       <h2 className="landing-tagline">Edit your org files online.</h2>
       <h2 className="landing-tagline">Optimized for mobile.</h2>
       <h2 className="landing-tagline">

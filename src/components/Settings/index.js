@@ -47,7 +47,8 @@ const Settings = ({
 
   const handleShouldLiveSyncChange = () => base.setShouldLiveSync(!shouldLiveSync);
 
-  const handleShouldSyncOnBecomingVisibleChange = () => base.setShouldSyncOnBecomingVisibile(!shouldSyncOnBecomingVisibile);
+  const handleShouldSyncOnBecomingVisibleChange = () =>
+    base.setShouldSyncOnBecomingVisibile(!shouldSyncOnBecomingVisibile);
 
   const handleShouldStoreSettingsInSyncBackendChange = () =>
     base.setShouldStoreSettingsInSyncBackend(!shouldStoreSettingsInSyncBackend);
@@ -95,10 +96,15 @@ const Settings = ({
         <div className="setting-label">
           Sync on application becoming visible
           <div className="setting-label__description">
-            If enabled, the current org file is pulled from the sync backend when the browser tab becomes visible. This prevents you from having a stale file before starting to make changes to it.
+            If enabled, the current org file is pulled from the sync backend when the browser tab
+            becomes visible. This prevents you from having a stale file before starting to make
+            changes to it.
           </div>
         </div>
-        <Switch isEnabled={shouldSyncOnBecomingVisibile} onToggle={handleShouldSyncOnBecomingVisibleChange} />
+        <Switch
+          isEnabled={shouldSyncOnBecomingVisibile}
+          onToggle={handleShouldSyncOnBecomingVisibleChange}
+        />
       </div>
 
       <div className="setting-container">
@@ -235,9 +241,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Settings)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Settings));

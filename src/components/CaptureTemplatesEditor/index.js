@@ -97,7 +97,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CaptureTemplatesEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(CaptureTemplatesEditor);

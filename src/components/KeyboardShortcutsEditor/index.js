@@ -54,9 +54,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(KeyboardShortcutsEditor)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(KeyboardShortcutsEditor));

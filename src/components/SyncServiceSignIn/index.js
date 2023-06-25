@@ -24,7 +24,9 @@ export default class SyncServiceSignIn extends PureComponent {
     persistField('authenticatedSyncService', 'Dropbox');
 
     const dropbox = new Dropbox({ clientId: process.env.REACT_APP_DROPBOX_CLIENT_ID, fetch });
-    const authURL = dropbox.getAuthenticationUrl(window.location.origin + process.env.PUBLIC_URL + '/');
+    const authURL = dropbox.getAuthenticationUrl(
+      window.location.origin + process.env.PUBLIC_URL + '/'
+    );
     window.location = authURL;
   }
 
@@ -40,7 +42,7 @@ export default class SyncServiceSignIn extends PureComponent {
             const tokenClient = google.accounts.oauth2.initTokenClient({
               client_id: process.env.REACT_APP_GOOGLE_DRIVE_CLIENT_ID,
               scope: 'https://www.googleapis.com/auth/drive.file',
-              callback: (accessToken) => {
+              callback: accessToken => {
                 persistField('authenticatedSyncService', 'Google Drive');
                 persistField('googleDriveAccessToken', JSON.stringify(accessToken));
                 window.location.reload();

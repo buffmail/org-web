@@ -264,19 +264,14 @@ class Header extends PureComponent {
       ? header.get('nestingLevel') - focusedHeader.get('nestingLevel') + 1
       : header.get('nestingLevel');
 
-    const {
-      dragStartX,
-      currentDragX,
-      isDraggingFreely,
-      isPlayingRemoveAnimation,
-      containerWidth,
-    } = this.state;
+    const { dragStartX, currentDragX, isDraggingFreely, isPlayingRemoveAnimation, containerWidth } =
+      this.state;
     const marginLeft =
       !!dragStartX && !!currentDragX && isDraggingFreely
         ? currentDragX - dragStartX
         : isPlayingRemoveAnimation
-          ? spring(-1 * containerWidth, { stiffness: 300 })
-          : spring(0, { stiffness: 300 });
+        ? spring(-1 * containerWidth, { stiffness: 300 })
+        : spring(0, { stiffness: 300 });
 
     const style = {
       paddingLeft: 20 * indentLevel,
@@ -441,7 +436,4 @@ const mapDispatchToProps = dispatch => ({
   base: bindActionCreators(baseActions, dispatch),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

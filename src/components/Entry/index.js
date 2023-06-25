@@ -207,9 +207,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Entry)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Entry));

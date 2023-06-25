@@ -225,13 +225,8 @@ class OrgFile extends PureComponent {
   }
 
   renderActivePopup() {
-    const {
-      activePopupType,
-      activePopupData,
-      captureTemplates,
-      headers,
-      selectedHeader,
-    } = this.props;
+    const { activePopupType, activePopupData, captureTemplates, headers, selectedHeader } =
+      this.props;
 
     switch (activePopupType) {
       case 'sync-confirmation':
@@ -356,18 +351,20 @@ class OrgFile extends PureComponent {
 
     // Automatically call preventDefault on all the keyboard events that come through for
     // these hotkeys.
-    const preventDefaultAndHandleEditMode = (callback, ignoreInEditMode = false) => event => {
-      if (ignoreInEditMode && inEditMode) {
-        return;
-      }
+    const preventDefaultAndHandleEditMode =
+      (callback, ignoreInEditMode = false) =>
+      event => {
+        if (ignoreInEditMode && inEditMode) {
+          return;
+        }
 
-      if (ignoreInEditMode && ['TEXTAREA', 'INPUT'].includes(document.activeElement.nodeName)) {
-        return;
-      }
+        if (ignoreInEditMode && ['TEXTAREA', 'INPUT'].includes(document.activeElement.nodeName)) {
+          return;
+        }
 
-      event.preventDefault();
-      callback(event);
-    };
+        event.preventDefault();
+        callback(event);
+      };
 
     const handlers = {
       selectNextVisibleHeader: preventDefaultAndHandleEditMode(
@@ -420,8 +417,9 @@ class OrgFile extends PureComponent {
             <HeaderList shouldDisableActions={shouldDisableActions} />
           )}
 
-          {isDirty &&
-            !shouldDisableDirtyIndicator && <div className="dirty-indicator">Unpushed changes</div>}
+          {isDirty && !shouldDisableDirtyIndicator && (
+            <div className="dirty-indicator">Unpushed changes</div>
+          )}
 
           {!shouldDisableActions && (
             <ActionDrawer
@@ -468,7 +466,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OrgFile);
+export default connect(mapStateToProps, mapDispatchToProps)(OrgFile);

@@ -197,13 +197,12 @@ const tablePartContainsCellId = (tablePart, cellId) =>
 const doesAttributedStringContainTableCellId = (parts, cellId) =>
   parts
     .filter(part => ['table', 'list'].includes(part.get('type')))
-    .some(
-      part =>
-        part.get('type') === 'table'
-          ? tablePartContainsCellId(part, cellId)
-          : part
-              .get('items')
-              .some(item => doesAttributedStringContainTableCellId(item.get('contents'), cellId))
+    .some(part =>
+      part.get('type') === 'table'
+        ? tablePartContainsCellId(part, cellId)
+        : part
+            .get('items')
+            .some(item => doesAttributedStringContainTableCellId(item.get('contents'), cellId))
     );
 
 export const headerThatContainsTableCellId = (headers, cellId) =>
@@ -546,10 +545,7 @@ export const newEmptyTableRowLikeRows = rows =>
     .set('id', generateId())
     .update('contents', contents =>
       contents.map(cell =>
-        cell
-          .set('id', generateId())
-          .set('contents', new List())
-          .set('rawContents', '')
+        cell.set('id', generateId()).set('contents', new List()).set('rawContents', '')
       )
     );
 
@@ -598,7 +594,7 @@ export const updateListContainingListItemId = (headers, listItemId, updaterCallb
 };
 
 export const updateContentsWithListItemAddition = (parts, listItem, listPart = null) => {
-  if ((parts.size === 0) || (parts.last().get('type') !== 'list')) {
+  if (parts.size === 0 || parts.last().get('type') !== 'list') {
     const insertIdx = parts.size;
     if (!!listPart) {
       parts = parts.insert(insertIdx, newListPartLikePart(listPart));
@@ -651,6 +647,4 @@ export const todoKeywordSetForKeyword = (todoKeywordSets, keyword) =>
   todoKeywordSets.first();
 
 export const isTodoKeywordCompleted = (todoKeywordSets, keyword) =>
-  todoKeywordSetForKeyword(todoKeywordSets, keyword)
-    .get('completedKeywords')
-    .includes(keyword);
+  todoKeywordSetForKeyword(todoKeywordSets, keyword).get('completedKeywords').includes(keyword);

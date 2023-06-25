@@ -37,84 +37,86 @@ export const stopDisplayingFile = () => {
   };
 };
 
-export const sync = ({
-  forceAction = null,
-  successMessage = 'Changes pushed',
-  shouldSuppressMessages = false,
-} = {}) => (dispatch, getState) => {
-  const client = getState().syncBackend.get('client');
-  const path = getState().org.present.get('path');
-  if (path === null) {
-    return;
-  }
+export const sync =
+  ({
+    forceAction = null,
+    successMessage = 'Changes pushed',
+    shouldSuppressMessages = false,
+  } = {}) =>
+  (dispatch, getState) => {
+    const client = getState().syncBackend.get('client');
+    const path = getState().org.present.get('path');
+    if (path === null) {
+      return;
+    }
 
-  if (!shouldSuppressMessages) {
-    dispatch(setLoadingMessage('Syncing...'));
-  }
-  dispatch(setIsLoading(true));
-  dispatch(setOrgFileErrorMessage(null));
+    if (!shouldSuppressMessages) {
+      dispatch(setLoadingMessage('Syncing...'));
+    }
+    dispatch(setIsLoading(true));
+    dispatch(setOrgFileErrorMessage(null));
 
-  client
-    .getFileContentsAndMetadata(path)
-    .then(({ contents, lastModifiedAt }) => {
-      const isDirty = getState().org.present.get('isDirty');
-      const lastServerModifiedAt = parseDate(lastModifiedAt);
-      const lastSyncAt = getState().org.present.get('lastSyncAt');
+    client
+      .getFileContentsAndMetadata(path)
+      .then(({ contents, lastModifiedAt }) => {
+        const isDirty = getState().org.present.get('isDirty');
+        const lastServerModifiedAt = parseDate(lastModifiedAt);
+        const lastSyncAt = getState().org.present.get('lastSyncAt');
 
-      if (isAfter(lastSyncAt, lastServerModifiedAt) || forceAction === 'push') {
-        if (isDirty) {
-          client
-            .updateFile(
-              path,
-              exportOrg(
-                getState().org.present.get('headers'),
-                getState().org.present.get('todoKeywordSets'),
-                getState().org.present.get('fileConfigLines'),
-                getState().org.present.get('linesBeforeHeadings')
+        if (isAfter(lastSyncAt, lastServerModifiedAt) || forceAction === 'push') {
+          if (isDirty) {
+            client
+              .updateFile(
+                path,
+                exportOrg(
+                  getState().org.present.get('headers'),
+                  getState().org.present.get('todoKeywordSets'),
+                  getState().org.present.get('fileConfigLines'),
+                  getState().org.present.get('linesBeforeHeadings')
+                )
               )
-            )
-            .then(() => {
-              if (!shouldSuppressMessages) {
-                dispatch(setDisappearingLoadingMessage(successMessage, 2000));
-              }
-              dispatch(setIsLoading(false));
-              dispatch(setDirty(false));
-              dispatch(setLastSyncAt(addSeconds(new Date(), 5)));
-            })
-            .catch(error => {
-              alert(`There was an error pushing the file: ${error.toString()}`);
-              dispatch(hideLoadingMessage());
-              dispatch(setIsLoading(false));
-            });
-        } else {
-          if (!shouldSuppressMessages) {
-            dispatch(setDisappearingLoadingMessage('Nothing to sync', 2000));
+              .then(() => {
+                if (!shouldSuppressMessages) {
+                  dispatch(setDisappearingLoadingMessage(successMessage, 2000));
+                }
+                dispatch(setIsLoading(false));
+                dispatch(setDirty(false));
+                dispatch(setLastSyncAt(addSeconds(new Date(), 5)));
+              })
+              .catch(error => {
+                alert(`There was an error pushing the file: ${error.toString()}`);
+                dispatch(hideLoadingMessage());
+                dispatch(setIsLoading(false));
+              });
+          } else {
+            if (!shouldSuppressMessages) {
+              dispatch(setDisappearingLoadingMessage('Nothing to sync', 2000));
+            }
+            dispatch(setIsLoading(false));
           }
-          dispatch(setIsLoading(false));
-        }
-      } else {
-        if (isDirty && forceAction !== 'pull') {
-          dispatch(hideLoadingMessage());
-          dispatch(setIsLoading(false));
-          dispatch(activatePopup('sync-confirmation', { lastServerModifiedAt }));
         } else {
-          dispatch(displayFile(path, contents));
-          dispatch(applyOpennessState());
-          dispatch(setDirty(false));
-          dispatch(setLastSyncAt(addSeconds(new Date(), 5)));
-          if (!shouldSuppressMessages) {
-            dispatch(setDisappearingLoadingMessage('Latest version pulled', 2000));
+          if (isDirty && forceAction !== 'pull') {
+            dispatch(hideLoadingMessage());
+            dispatch(setIsLoading(false));
+            dispatch(activatePopup('sync-confirmation', { lastServerModifiedAt }));
+          } else {
+            dispatch(displayFile(path, contents));
+            dispatch(applyOpennessState());
+            dispatch(setDirty(false));
+            dispatch(setLastSyncAt(addSeconds(new Date(), 5)));
+            if (!shouldSuppressMessages) {
+              dispatch(setDisappearingLoadingMessage('Latest version pulled', 2000));
+            }
+            dispatch(setIsLoading(false));
           }
-          dispatch(setIsLoading(false));
         }
-      }
-    })
-    .catch(() => {
-      dispatch(hideLoadingMessage());
-      dispatch(setIsLoading(false));
-      dispatch(setOrgFileErrorMessage('File not found'));
-    });
-};
+      })
+      .catch(() => {
+        dispatch(hideLoadingMessage());
+        dispatch(setIsLoading(false));
+        dispatch(setOrgFileErrorMessage('File not found'));
+      });
+  };
 
 export const openHeader = headerId => ({
   type: 'OPEN_HEADER',

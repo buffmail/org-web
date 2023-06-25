@@ -5,8 +5,10 @@ import _ from 'lodash';
 
 // Yeah, this thing is pretty wild. I use https://www.debuggex.com/ to edit it, then paste the results in here.
 // But fixing this mess is on my todo list...
-const markupAndCookieRegex = /(\[\[([^\]]*)\]\]|\[\[([^\]]*)\]\[([^\]]*)\]\])|(\[((\d*%)|(\d*\/\d*))\])|(([\s({'"]?)([*/~=_+])([^\s,'](.*)[^\s,'])\11([\s\-.,:!?'")}]?))|(([<[])(\d{4})-(\d{2})-(\d{2})(?: ([^0-9]{1,9}))?(?: ([012]?\d:[0-5]\d))?(?:-([012]?\d:[0-5]\d))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?[>\]](?:--([<[])(\d{4})-(\d{2})-(\d{2})(?: ([^0-9]{1,9}))?(?: ([012]?\d:[0-5]\d))?(?:-([012]?\d:[0-5]\d))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?[>\]])?)/g;
-const timestampRegex = /([<[])(\d{4})-(\d{2})-(\d{2})(?: ([^0-9]{1,9}))?(?: ([012]?\d:[0-5]\d))?(?:-([012]?\d:[0-5]\d))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?[>\]]/;
+const markupAndCookieRegex =
+  /(\[\[([^\]]*)\]\]|\[\[([^\]]*)\]\[([^\]]*)\]\])|(\[((\d*%)|(\d*\/\d*))\])|(([\s({'"]?)([*/~=_+])([^\s,'](.*)[^\s,'])\11([\s\-.,:!?'")}]?))|(([<[])(\d{4})-(\d{2})-(\d{2})(?: ([^0-9]{1,9}))?(?: ([012]?\d:[0-5]\d))?(?:-([012]?\d:[0-5]\d))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?[>\]](?:--([<[])(\d{4})-(\d{2})-(\d{2})(?: ([^0-9]{1,9}))?(?: ([012]?\d:[0-5]\d))?(?:-([012]?\d:[0-5]\d))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?[>\]])?)/g;
+const timestampRegex =
+  /([<[])(\d{4})-(\d{2})-(\d{2})(?: ([^0-9]{1,9}))?(?: ([012]?\d:[0-5]\d))?(?:-([012]?\d:[0-5]\d))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?(?: ((?:\+)|(?:\+\+)|(?:\.\+)|(?:-)|(?:--))(\d+)(h|d|w|m|y))?[>\]]/;
 
 const timestampFromRegexMatch = (match, partIndices) => {
   const [
@@ -578,14 +580,10 @@ const concatRegexes = (...regexes) =>
 
 export const newHeaderFromText = (rawText, todoKeywordSets) => {
   const titleLine = rawText.split('\n')[0].replace(/^\**\s*/, '');
-  const description = rawText
-    .split('\n')
-    .slice(1)
-    .join('\n');
+  const description = rawText.split('\n').slice(1).join('\n');
 
-  const { planningItems, propertyListItems, strippedDescription } = parseDescriptionPrefixElements(
-    description
-  );
+  const { planningItems, propertyListItems, strippedDescription } =
+    parseDescriptionPrefixElements(description);
 
   return newHeaderWithTitle(titleLine, 1, todoKeywordSets)
     .set('rawDescription', strippedDescription)
@@ -646,11 +644,8 @@ export const parseOrg = fileContents => {
   }
 
   headers = headers.map(header => {
-    const {
-      planningItems,
-      propertyListItems,
-      strippedDescription,
-    } = parseDescriptionPrefixElements(header.get('rawDescription'));
+    const { planningItems, propertyListItems, strippedDescription } =
+      parseDescriptionPrefixElements(header.get('rawDescription'));
 
     return header
       .set('rawDescription', strippedDescription)

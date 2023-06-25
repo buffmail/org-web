@@ -86,21 +86,13 @@ export default class TimestampEditor extends PureComponent {
 
   handleAddRepeater() {
     const { onChange, timestamp } = this.props;
-    onChange(
-      timestamp
-        .set('repeaterType', '+')
-        .set('repeaterValue', 1)
-        .set('repeaterUnit', 'h')
-    );
+    onChange(timestamp.set('repeaterType', '+').set('repeaterValue', 1).set('repeaterUnit', 'h'));
   }
 
   handleRemoveRepeater() {
     const { onChange, timestamp } = this.props;
     onChange(
-      timestamp
-        .set('repeaterType', null)
-        .set('repeaterValue', null)
-        .set('repeaterUnit', null)
+      timestamp.set('repeaterType', null).set('repeaterValue', null).set('repeaterUnit', null)
     );
   }
 
@@ -121,22 +113,12 @@ export default class TimestampEditor extends PureComponent {
 
   handleAddDelay() {
     const { onChange, timestamp } = this.props;
-    onChange(
-      timestamp
-        .set('delayType', '-')
-        .set('delayValue', 1)
-        .set('delayUnit', 'h')
-    );
+    onChange(timestamp.set('delayType', '-').set('delayValue', 1).set('delayUnit', 'h'));
   }
 
   handleRemoveDelay() {
     const { onChange, timestamp } = this.props;
-    onChange(
-      timestamp
-        .set('delayType', null)
-        .set('delayValue', null)
-        .set('delayUnit', null)
-    );
+    onChange(timestamp.set('delayType', null).set('delayValue', null).set('delayUnit', null));
   }
 
   handleDelayTypeChange(newDelayType) {
@@ -279,16 +261,8 @@ export default class TimestampEditor extends PureComponent {
 
   render() {
     const { timestamp } = this.props;
-    const {
-      isActive,
-      year,
-      month,
-      day,
-      startHour,
-      startMinute,
-      endHour,
-      endMinute,
-    } = timestamp.toJS();
+    const { isActive, year, month, day, startHour, startMinute, endHour, endMinute } =
+      timestamp.toJS();
 
     return (
       <div>

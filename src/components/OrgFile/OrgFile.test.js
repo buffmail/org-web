@@ -146,23 +146,14 @@ Some description content
   });
 
   test('Can select a header in an org file', () => {
-    component
-      .find('.title-line')
-      .first()
-      .simulate('click');
+    component.find('.title-line').first().simulate('click');
 
     expect(toJSON(component)).toMatchSnapshot();
   });
 
   test('Can advance todo state for selected header in an org file', () => {
-    component
-      .find('.title-line')
-      .first()
-      .simulate('click');
-    component
-      .find('.fas.fa-check')
-      .first()
-      .simulate('click');
+    component.find('.title-line').first().simulate('click');
+    component.find('.fas.fa-check').first().simulate('click');
 
     expect(toJSON(component)).toMatchSnapshot();
   });

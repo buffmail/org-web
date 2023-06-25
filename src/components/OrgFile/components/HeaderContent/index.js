@@ -263,7 +263,7 @@ class HeaderContent extends PureComponent {
     }
 
     const startWhitespaces = this.state.descriptionValue.match(/^\s*/);
-    const indentStr = startWhitespaces ? startWhitespaces[0]: '';
+    const indentStr = startWhitespaces ? startWhitespaces[0] : '';
 
     return (
       <div
@@ -281,21 +281,27 @@ class HeaderContent extends PureComponent {
               value={this.state.descriptionValue}
               onBlur={this.handleTextareaBlur}
               onChange={this.handleDescriptionChange}
-              onFocus={(e) => {
+              onFocus={e => {
                 const target = e.target;
                 setTimeout(() => {
                   target.scrollTop = target.scrollHeight;
-                }, 0)
+                }, 0);
               }}
-              onKeyDown={(e) => {
+              onKeyDown={e => {
                 const target = e.target;
                 if (target && e.keyCode === 13) {
                   e.preventDefault();
                   const currentContent = target.value;
                   const caretPosition = target.selectionStart;
                   const newChars = '\n' + indentStr;
-                  target.value = currentContent.substring(0, caretPosition) + newChars + currentContent.substring(caretPosition);
-                  target.setSelectionRange(caretPosition + newChars.length, caretPosition + newChars.length);
+                  target.value =
+                    currentContent.substring(0, caretPosition) +
+                    newChars +
+                    currentContent.substring(caretPosition);
+                  target.setSelectionRange(
+                    caretPosition + newChars.length,
+                    caretPosition + newChars.length
+                  );
                 }
               }}
             />

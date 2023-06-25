@@ -131,17 +131,19 @@ export default class TagsEditorModal extends PureComponent {
         <h2 className="tags-editor__title">All tags</h2>
 
         <div className="all-tags-container">
-          {allTags.filter(tag => !!tag).map(tag => {
-            const className = classNames('all-tags__tag', {
-              'all-tags__tag--in-use': headerTags.includes(tag),
-            });
+          {allTags
+            .filter(tag => !!tag)
+            .map(tag => {
+              const className = classNames('all-tags__tag', {
+                'all-tags__tag--in-use': headerTags.includes(tag),
+              });
 
-            return (
-              <div className={className} key={tag} onClick={this.handleExistingTagClick(tag)}>
-                {tag}
-              </div>
-            );
-          })}
+              return (
+                <div className={className} key={tag} onClick={this.handleExistingTagClick(tag)}>
+                  {tag}
+                </div>
+              );
+            })}
         </div>
       </Drawer>
     );

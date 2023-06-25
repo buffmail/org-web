@@ -383,7 +383,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ActionDrawer);
+export default connect(mapStateToProps, mapDispatchToProps)(ActionDrawer);

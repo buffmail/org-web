@@ -1,47 +1,47 @@
 .btn {
-    background-color: #5E348C;
-    color: white;
-    border: 0;
-    padding: 8px 16px;
+  background-color: #5e348c;
+  color: white;
+  border: 0;
+  padding: 8px 16px;
 }
 
 .btn--circle {
-    border-radius: 50%;
-    font-weight: bold;
-    padding: 0;
-    width: 60px;
-    height: 60px;
+  border-radius: 50%;
+  font-weight: bold;
+  padding: 0;
+  width: 60px;
+  height: 60px;
 }
 
 .btn--disabled {
-    background-color: lightgray;
+  background-color: lightgray;
 }
 
 .nice-scroll {
-    -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
 }
 
 .textarea {
-    width: 95%;
-    font-size: 16px;
-    font-family: Courier;
+  width: 95%;
+  font-size: 16px;
+  font-family: Courier;
 
-    -webkit-appearance: none;
-    border-radius: 0;
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
 .textfield {
-    border: 1px solid #D8D8D8;
-    border-radius: 0;
-    -webkit-appearance: none;
-    padding: 5px;
-    font-size: 16px;
+  border: 1px solid #d8d8d8;
+  border-radius: 0;
+  -webkit-appearance: none;
+  padding: 5px;
+  font-size: 16px;
 }
 
-div[tabindex="-1"]:focus {
-    outline: 0;
+div[tabindex='-1']:focus {
+  outline: 0;
 }
 
 button {
-    touch-action: manipulation;
+  touch-action: manipulation;
 }
