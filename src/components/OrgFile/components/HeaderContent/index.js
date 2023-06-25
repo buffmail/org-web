@@ -262,6 +262,9 @@ class HeaderContent extends PureComponent {
       return <div />;
     }
 
+    const startWhitespaces = this.state.descriptionValue.match(/^\s*/);
+    const indentStr = startWhitespaces ? startWhitespaces[0]: '';
+
     return (
       <div
         className="header-content-container nice-scroll"
@@ -279,7 +282,21 @@ class HeaderContent extends PureComponent {
               onBlur={this.handleTextareaBlur}
               onChange={this.handleDescriptionChange}
               onFocus={(e) => {
-                e.target.scrollTop = e.target.scrollHeight;
+                const target = e.target;
+                setTimeout(() => {
+                  target.scrollTop = target.scrollHeight;
+                }, 0)
+              }}
+              onKeyDown={(e) => {
+                const target = e.target;
+                if (target && e.keyCode === 13) {
+                  e.preventDefault();
+                  const currentContent = target.value;
+                  const caretPosition = target.selectionStart;
+                  const newChars = '\n' + indentStr;
+                  target.value = currentContent.substring(0, caretPosition) + newChars + currentContent.substring(caretPosition);
+                  target.setSelectionRange(caretPosition + newChars.length, caretPosition + newChars.length);
+                }
               }}
             />
             <div
