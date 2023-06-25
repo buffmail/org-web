@@ -10,6 +10,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "immutable": "^3.8.2",
     "lodash": "^4.17.21",
+    "preval.macro": "^5.0.0",
     "react": "^16.8.3",
     "react-beautiful-dnd": "^11.0.0",
     "react-collapse": "^4.0.3",
