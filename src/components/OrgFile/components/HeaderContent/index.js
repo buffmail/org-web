@@ -302,6 +302,7 @@ class HeaderContent extends PureComponent {
                     caretPosition + newChars.length,
                     caretPosition + newChars.length
                   );
+                  target.scrollTop = target.scrollHeight;
                 }
               }}
             />
