@@ -25,7 +25,6 @@ class HeaderContent extends PureComponent {
       'handleRef',
       'handleTextareaRef',
       'handleDescriptionChange',
-      'handleTextareaBlur',
       'handleTableCellSelect',
       'handleExitTableEditMode',
       'handleTableCellValueUpdate',
@@ -53,7 +52,6 @@ class HeaderContent extends PureComponent {
     this.state = {
       descriptionValue: this.calculateRawDescription(props.header),
       containerWidth: null,
-      shouldIgnoreBlur: false,
     };
   }
 
@@ -132,17 +130,6 @@ class HeaderContent extends PureComponent {
     this.setState({ descriptionValue: event.target.value });
   }
 
-  handleTextareaBlur() {
-    // Give the "Insert timestamp" button click a chance to tell us to ignore the blur event.
-    setTimeout(() => {
-      if (!this.state.shouldIgnoreBlur) {
-        this.props.org.exitEditMode();
-      } else {
-        this.setState({ shouldIgnoreBlur: false });
-      }
-    }, 100);
-  }
-
   handleTableCellSelect(cellId) {
     this.props.org.setSelectedTableCellId(cellId);
   }
@@ -219,20 +206,20 @@ class HeaderContent extends PureComponent {
     this.props.base.activatePopup('timestamp-editor', { timestampId });
   }
 
-  handleInsertTimestamp() {
-    // Clicking this button will unfocus the textarea, but we don't want to exit edit mode,
-    // so instruct the blur handler to ignore the event.
-    this.setState({ shouldIgnoreBlur: true });
+  handleInsertTimestamp(e) {
+    e.preventDefault();
 
     const { descriptionValue } = this.state;
     const insertionIndex = this.textarea.selectionStart;
-    this.setState({
-      descriptionValue:
-        descriptionValue.substring(0, insertionIndex) +
-        getCurrentTimestampAsText() +
-        descriptionValue.substring(this.textarea.selectionEnd || insertionIndex),
+    const timestamp = getCurrentTimestampAsText();
+    const newCursorPos = insertionIndex + timestamp.length;
+    const newText =
+      descriptionValue.substring(0, insertionIndex) +
+      timestamp +
+      descriptionValue.substring(this.textarea.selectionEnd || insertionIndex);
+    this.setState({ descriptionValue: newText }, () => {
+      this.textarea.setSelectionRange(newCursorPos, newCursorPos);
     });
-    this.textarea.focus();
   }
 
   handlePlanningItemTimestampClick(headerId) {
@@ -279,7 +266,6 @@ class HeaderContent extends PureComponent {
               rows={Math.min(10, this.state.descriptionValue.split('\n').length)}
               ref={this.handleTextareaRef}
               value={this.state.descriptionValue}
-              onBlur={this.handleTextareaBlur}
               onChange={this.handleDescriptionChange}
               onFocus={e => {
                 const target = e.target;
@@ -309,7 +295,7 @@ class HeaderContent extends PureComponent {
             />
             <div
               className="header-content__insert-timestamp-button"
-              onClick={this.handleInsertTimestamp}
+              onMouseDown={this.handleInsertTimestamp}
             >
               <i className="fas fa-plus insert-timestamp-icon" />
               Insert timestamp
