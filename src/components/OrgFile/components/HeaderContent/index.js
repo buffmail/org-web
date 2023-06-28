@@ -282,7 +282,8 @@ class HeaderContent extends PureComponent {
                   const beforeText = currentContent.substring(0, caretPosition);
                   const afterText = currentContent.substring(caretPosition);
                   const newlineText = '\n' + indentStr;
-                  target.value = beforeText + newlineText + afterText;
+                  const newValue = beforeText + newlineText + afterText;
+                  target.value = newValue;
                   target.setSelectionRange(
                     caretPosition + newlineText.length,
                     caretPosition + newlineText.length
@@ -290,6 +291,8 @@ class HeaderContent extends PureComponent {
                   if (afterText.length === 0) {
                     target.scrollTop = target.scrollHeight;
                   }
+
+                  this.setState({ descriptionValue: newValue });
                 }
               }}
             />
