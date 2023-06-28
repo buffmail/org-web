@@ -1,4 +1,5 @@
 import formatDate from 'date-fns/format';
+import koLocale from 'date-fns/locale/ko';
 import parseDate from 'date-fns/parse';
 import {
   addHours,
@@ -75,7 +76,10 @@ export const getCurrentTimestamp = ({ isActive = true, withStartTime = false } =
   return timestamp;
 };
 
-export const getCurrentTimestampAsText = () => `[${formatDate(new Date(), 'YYYY-MM-DD ddd')}]`;
+export const getCurrentTimestampAsText = () =>
+  `[${formatDate(new Date(), 'YYYY-MM-DD ddd', {
+    locale: navigator.language.startsWith('ko') ? koLocale : undefined,
+  })}]`;
 
 export const dateForTimestamp = timestamp => {
   const { year, month, day, startHour, startMinute } = timestamp.toJS();
