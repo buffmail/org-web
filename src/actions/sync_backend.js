@@ -66,15 +66,17 @@ export const getDirectoryListing = path => (dispatch, getState) => {
       dispatch(hideLoadingMessage());
     })
     .catch(error => {
-      alert(`There was an error retrieving files! (status: ${error.status})`);
+      const msg = `There was an error retrieving files! (status: ${error.status})`;
 
       if (error.status === 401 || error.status === 404) {
-        window.console.log(`uRL: ${process.env.PUBLIC_URL}`);
+        window.console.warn(msg);
         const dropbox = new Dropbox({ clientId: process.env.REACT_APP_DROPBOX_CLIENT_ID, fetch });
         const authURL = dropbox.getAuthenticationUrl(
           window.location.origin + process.env.PUBLIC_URL + '/'
         );
         window.location = authURL;
+      } else {
+        alert(msg);
       }
 
       dispatch(hideLoadingMessage());
