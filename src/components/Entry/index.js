@@ -170,7 +170,7 @@ class Entry extends PureComponent {
               <Route path="/privacy-policy" exact component={PrivacyPolicy} />
               <Route path="/file/:path+" render={this.renderFile} />
               <Route path="/files/:path*" render={this.renderFileBrowser} />
-              <Redirect to="/files" />
+              <Redirect to="/file/life.org" />
             </Switch>
           )
         ) : (
