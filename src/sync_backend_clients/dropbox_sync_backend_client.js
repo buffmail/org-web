@@ -81,7 +81,10 @@ export default accessToken => {
           reader.readAsText(response.fileBlob);
         })
         .catch(error => {
-          if (!!error.error && JSON.parse(error.error).error.path['.tag'] === 'not_found') {
+          if (!!error.error && JSON.parse(error.error).error['.tag'] === 'expired_access_token') {
+            reject(new Response(null, { status: 401 }));
+          }
+          if (!!error.error && JSON.parse(error.error).error['.tag'] === 'not_found') {
             reject();
           }
         })
