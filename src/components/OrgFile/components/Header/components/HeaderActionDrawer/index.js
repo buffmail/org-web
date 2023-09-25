@@ -15,17 +15,8 @@ export default class HeaderActionDrawer extends PureComponent {
   }
 
   render() {
-    const {
-      onEnterTitleEditMode,
-      onEnterDescriptionEditMode,
-      onTagsClick,
-      isFocused,
-      onFocus,
-      onUnfocus,
-      onAddNewHeader,
-      onDeadlineClick,
-      onScheduledClick,
-    } = this.props;
+    const { onEnterTitleEditMode, onEnterDescriptionEditMode, isFocused, onFocus, onUnfocus } =
+      this.props;
 
     return (
       <div className="header-action-drawer-container">
@@ -38,31 +29,9 @@ export default class HeaderActionDrawer extends PureComponent {
 
           <span className="header-action-drawer__separator" />
 
-          {this.iconWithFFClickCatcher('fas fa-tags fa-lg', onTagsClick)}
-
-          <span className="header-action-drawer__separator" />
-
           {isFocused
             ? this.iconWithFFClickCatcher('fas fa-expand fa-lg', onUnfocus)
             : this.iconWithFFClickCatcher('fas fa-compress fa-lg', onFocus)}
-
-          <span className="header-action-drawer__separator" />
-
-          {this.iconWithFFClickCatcher('fas fa-plus fa-lg', onAddNewHeader)}
-          <div
-            className="header-action-drawer__deadline-scheduled-button"
-            onClick={onDeadlineClick}
-          >
-            Deadline
-          </div>
-          <span className="header-action-drawer__separator" />
-
-          <div
-            className="header-action-drawer__deadline-scheduled-button"
-            onClick={onScheduledClick}
-          >
-            Scheduled
-          </div>
         </div>
       </div>
     );

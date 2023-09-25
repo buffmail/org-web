@@ -296,13 +296,6 @@ class HeaderContent extends PureComponent {
                 }
               }}
             />
-            <div
-              className="header-content__insert-timestamp-button"
-              onMouseDown={this.handleInsertTimestamp}
-            >
-              <i className="fas fa-plus insert-timestamp-icon" />
-              Insert timestamp
-            </div>
           </div>
         ) : (
           <Fragment>
