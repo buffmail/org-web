@@ -537,12 +537,34 @@ const applyOpennessState = (state, action) => {
     return state;
   }
 
+  const MEMO_TITLE = 'memo';
+
   let headers = state.get('headers');
+
+  const prevMemoHeader = headers.findLast(header => {
+    const rawTitle = header.getIn(['titleLine', 'rawTitle']);
+    return rawTitle === MEMO_TITLE;
+  });
+  const prevOpened = prevMemoHeader ? prevMemoHeader.get('opened') : false;
+
   fileOpennessState.forEach(openHeaderPath => {
     headers = openHeaderWithPath(headers, openHeaderPath);
   });
 
-  return state.set('headers', headers);
+  const nextMemoHeader = headers.findLast(header => {
+    const rawTitle = header.getIn(['titleLine', 'rawTitle']);
+    return rawTitle === MEMO_TITLE;
+  });
+  const nextOpened = nextMemoHeader ? nextMemoHeader.get('opened') : false;
+
+  state = state.set('headers', headers);
+  if (prevOpened === false && nextOpened === true) {
+    const headerId = nextMemoHeader.get('id');
+    state = state.set('selectedHeaderId', headerId);
+    state = state.set('focusedHeaderId', headerId);
+  }
+
+  return state;
 };
 
 const setDirty = (state, action) => state.set('isDirty', action.isDirty);
