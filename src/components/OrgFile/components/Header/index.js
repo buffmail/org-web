@@ -409,7 +409,11 @@ class Header extends PureComponent {
                 />
               </Collapse>
 
-              <HeaderContent header={header} shouldDisableActions={shouldDisableActions} />
+              <HeaderContent
+                header={header}
+                isFocused={isFocused}
+                shouldDisableActions={shouldDisableActions}
+              />
             </div>
           );
         }}

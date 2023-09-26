@@ -235,6 +235,7 @@ class HeaderContent extends PureComponent {
   render() {
     const {
       header,
+      isFocused,
       inEditMode,
       selectedTableCellId,
       inTableEditMode,
@@ -251,6 +252,7 @@ class HeaderContent extends PureComponent {
 
     const startWhitespaces = this.state.descriptionValue.match(/^\s*/);
     const indentStr = startWhitespaces ? startWhitespaces[0] : '';
+    const editMinLines = isFocused ? 30 : 10;
 
     return (
       <div
@@ -263,7 +265,7 @@ class HeaderContent extends PureComponent {
             <textarea
               autoFocus
               className="textarea"
-              rows={Math.min(10, this.state.descriptionValue.split('\n').length)}
+              rows={Math.min(editMinLines, this.state.descriptionValue.split('\n').length)}
               ref={this.handleTextareaRef}
               value={this.state.descriptionValue}
               onChange={this.handleDescriptionChange}
