@@ -236,6 +236,7 @@ class HeaderContent extends PureComponent {
     const {
       header,
       isFocused,
+      indentLevel,
       inEditMode,
       selectedTableCellId,
       inTableEditMode,
@@ -253,12 +254,13 @@ class HeaderContent extends PureComponent {
     const startWhitespaces = this.state.descriptionValue.match(/^\s*/);
     const indentStr = startWhitespaces ? startWhitespaces[0] : '';
     const editMinLines = isFocused ? 30 : 10;
+    const leftMargin = 20 * indentLevel;
 
     return (
       <div
         className="header-content-container nice-scroll"
         ref={this.handleRef}
-        style={{ width: containerWidth }}
+        style={{ width: containerWidth, marginLeft: `-${leftMargin}px` }}
       >
         {inEditMode ? (
           <div className="header-content__edit-container">

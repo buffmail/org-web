@@ -412,6 +412,7 @@ class Header extends PureComponent {
               <HeaderContent
                 header={header}
                 isFocused={isFocused}
+                indentLevel={indentLevel}
                 shouldDisableActions={shouldDisableActions}
               />
             </div>
