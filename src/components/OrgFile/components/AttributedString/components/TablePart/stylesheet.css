@@ -23,7 +23,7 @@
 .table-cell__insert-timestamp-button {
   color: gray;
 
-  font-family: Courier;
+  font-family: ui-monospace;
 
   display: flex;
   align-items: center;

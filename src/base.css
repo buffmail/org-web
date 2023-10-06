@@ -24,7 +24,7 @@
 .textarea {
   width: calc(100% - 10px);
   font-size: 14px;
-  font-family: Courier;
+  font-family: ui-monospace;
   border-left: 0px;
   border-right: 0px;
 

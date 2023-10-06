@@ -35,7 +35,7 @@
 .agenda-day__header-container {
   display: flex;
 
-  font-family: Courier;
+  font-family: ui-monospace;
 
   margin-bottom: 8px;
 }
@@ -45,7 +45,7 @@
 }
 
 .agenda-day__header__planning-item-container {
-  font-family: Courier;
+  font-family: ui-monospace;
 }
 
 .agenda-day__header-planning-type {

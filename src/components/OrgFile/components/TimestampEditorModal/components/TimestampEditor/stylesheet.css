@@ -1,5 +1,5 @@
 .timestamp-editor__render {
-  font-family: Courier;
+  font-family: ui-monospace;
   font-size: 14px;
 
   text-align: center;
@@ -30,7 +30,7 @@
 }
 
 .timestamp-editor__field {
-  font-family: Courier;
+  font-family: ui-monospace;
 
   flex: 1;
 

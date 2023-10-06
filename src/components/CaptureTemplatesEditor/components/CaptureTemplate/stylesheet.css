@@ -108,7 +108,7 @@
 }
 
 .multi-textfield-field {
-  font-family: Courier;
+  font-family: ui-monospace;
 
   flex: 1;
 }

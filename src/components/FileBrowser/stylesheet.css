@@ -19,7 +19,7 @@
 .file-browser__file-list__element {
   border-top: 1px solid #d8d8d8;
   padding: 10px;
-  font-family: Courier;
+  font-family: ui-monospace;
 }
 
 .file-browser__file-list__element:last-of-type {

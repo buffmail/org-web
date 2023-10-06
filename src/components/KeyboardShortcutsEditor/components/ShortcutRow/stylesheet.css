@@ -27,7 +27,7 @@
   border: 1px solid gray;
   box-sizing: border-box;
 
-  font-family: Courier;
+  font-family: ui-monospace;
 }
 
 .keyboard-shortcut-container__shortcut-key--edit-mode {
